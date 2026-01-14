@@ -11,6 +11,7 @@ MAKEFLAGS += --warn-undefined-variables
 NAME := bowerbird-help
 VERSION := $(shell git describe --always --dirty --broken 2> /dev/null)
 WORKDIR_ROOT := $(CURDIR)/.make
+WORKDIR_BUILD = $(WORKDIR_ROOT)/build
 WORKDIR_DEPS = $(WORKDIR_ROOT)/deps
 WORKDIR_TEST = $(WORKDIR_ROOT)/test/$(NAME)/$(VERSION)
 
@@ -29,6 +30,6 @@ private_clean:
 	@echo "INFO: Cleaning complete."
 	@echo
 
-ifdef bowerbird::test::generate-runner
-    $(call bowerbird::test::generate-runner,private_test,test)
+ifdef bowerbird::test::suite
+$(call bowerbird::test::suite,private_test,test/bowerbird-help,test*.mk,test*)
 endif

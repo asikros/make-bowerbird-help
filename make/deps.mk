@@ -5,13 +5,22 @@ WORKDIR_DEPS ?= $(error ERROR: Undefined variable WORKDIR_DEPS)
 BOWERBIRD_DEPS.MK := $(WORKDIR_DEPS)/bowerbird-deps/bowerbird_deps.mk
 $(BOWERBIRD_DEPS.MK):
 	@curl --silent --show-error --fail --create-dirs -o $@ -L \
-https://raw.githubusercontent.com/ic-designer/make-bowerbird-deps/\
+https://raw.githubusercontent.com/asikros/make-bowerbird-deps/\
 main/src/bowerbird-deps/bowerbird-deps.mk
 include $(BOWERBIRD_DEPS.MK)
 
 
 # Load Dependencies
-$(call bowerbird::git-dependency,$(WORKDIR_DEPS)/bowerbird-githooks,\
-		https://github.com/ic-designer/make-bowerbird-githooks.git,main,bowerbird.mk)
-$(call bowerbird::git-dependency,$(WORKDIR_DEPS)/bowerbird-test,\
-		https://github.com/ic-designer/make-bowerbird-test.git,main,bowerbird.mk)
+$(call bowerbird::git-dependency, \
+	name=bowerbird-githooks, \
+	path=$(WORKDIR_DEPS)/bowerbird-githooks, \
+	url=https://github.com/asikros/make-bowerbird-githooks.git, \
+	branch=main, \
+	entry=bowerbird.mk)
+
+$(call bowerbird::git-dependency, \
+	name=bowerbird-test, \
+	path=$(WORKDIR_DEPS)/bowerbird-test, \
+	url=https://github.com/asikros/make-bowerbird-test.git, \
+	branch=main, \
+	entry=bowerbird.mk)

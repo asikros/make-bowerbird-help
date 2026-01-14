@@ -27,7 +27,12 @@ $(__HELP_CACHE): $(MAKEFILE_LIST) | $(dir $(__HELP_CACHE))/.
 define __HELP_AWK
 awk -v makefiles="$(MAKEFILE_LIST)" 'BEGIN { \
 	FS = ":.*##"; \
-	cmd = "make -f " makefiles " -pnRrq : 2>/dev/null"; \
+	n = split(makefiles, files, " "); \
+	cmd = "make"; \
+	for (i = 1; i <= n; i++) { \
+		cmd = cmd " -f " files[i]; \
+	} \
+	cmd = cmd " -pnRrq : 2>/dev/null"; \
 	while ((cmd | getline line) > 0) { \
 		if (line ~ /^[A-Za-z_][A-Za-z0-9_]*[[:space:]]*[:+?]?=[[:space:]]/) { \
 			varname = line; \

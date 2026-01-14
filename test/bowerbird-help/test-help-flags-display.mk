@@ -5,9 +5,8 @@
 # NOTE: This test uses a separate fixture makefile (fixture-flags-test.mk)
 # to avoid polluting the main help output with test flags.
 #
-# NOTE: Variable-based flag names (e.g., $(FLAG_NAME): ## Description)
-# are not supported because the AWK script processes the raw Makefile
-# text before variable expansion.
+# NOTE: This test uses hardcoded flag names. For variable-based flag names,
+# see test-help-variable-expansion.mk
 
 # Helper variable for the test fixture
 # Use CURDIR to ensure we get the right path even when invoked through test framework

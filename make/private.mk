@@ -31,5 +31,5 @@ private_clean:
 	@echo
 
 ifdef bowerbird::test::suite
-    $(call bowerbird::test::suite,private_test,test)
+$(call bowerbird::test::suite,private_test,test/bowerbird-help,test*.mk,test*)
 endif

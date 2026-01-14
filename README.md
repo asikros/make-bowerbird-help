@@ -1,6 +1,6 @@
 # Bowerbird Help Tools
 
-[![Makefile CI](https://github.com/ic-designer/make-bowerbird-help/actions/workflows/makefile.yml/badge.svg)](https://github.com/ic-designer/make-bowerbird-help/actions/workflows/makefile.yml)
+[![Makefile CI](https://github.com/asikros/make-bowerbird-help/actions/workflows/makefile.yml/badge.svg)](https://github.com/asikros/make-bowerbird-help/actions/workflows/makefile.yml)
 
 Creates a `help` target that will list specified targets and optional flags alongside
 user-defined descriptions. The help system automatically separates targets from flags

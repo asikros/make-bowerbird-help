@@ -3,7 +3,7 @@
 
 #Targets
 .PHONY: check
-check: ## Runs the repository tests
+check: ## Runs all repository tests
 check: private_test
 
 .PHONY: clean
@@ -11,7 +11,7 @@ clean: ## Deletes all files created by Make
 clean: private_clean
 
 .PHONY: test
-test: ## Runs the repository tests
+test: ## Runs all repository tests (alias for check)
 test: private_test
 
 # Includes

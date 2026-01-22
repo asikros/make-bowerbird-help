@@ -1,9 +1,13 @@
 # Error checks
 WORKDIR_BUILD ?= $(error ERROR: Undefined variable WORKDIR_BUILD)
 
+# Configuration
+bowerbird-help.width-target ?= 28
+bowerbird-help.width-description ?= 60
+bowerbird-help.files ?= $(MAKEFILE_LIST)
+
 # Paths
 __HELP_CACHE = $(WORKDIR_BUILD)/help/help.cache
-__HELP_WIDTH = 28
 
 # Targets
 .PRECIOUS: %/.
@@ -25,7 +29,9 @@ $(__HELP_CACHE): $(MAKEFILE_LIST) | $(dir $(__HELP_CACHE))/.
 	} > $@
 
 define __HELP_AWK
-awk -v makefiles="$(MAKEFILE_LIST)" 'BEGIN { \
+awk -v target_width="$(bowerbird-help.width-target)" \
+    -v desc_width="$(bowerbird-help.width-description)" \
+    -v makefiles="$(bowerbird-help.files)" 'BEGIN { \
 	FS = ":.*##"; \
 	n = split(makefiles, files, " "); \
 	cmd = "make"; \
@@ -61,6 +67,36 @@ function expand(s,  var,pre,post,val,i,matched) { \
 	} \
 	return s; \
 } \
+function wrap_text(text, width, indent,    words, n, line, i, word, result, first) { \
+	gsub(/^[[:space:]]+/, "", text); \
+	gsub(/[[:space:]]+$$/, "", text); \
+	n = split(text, words, /[[:space:]]+/); \
+	line = ""; \
+	result = ""; \
+	first = 1; \
+	for (i = 1; i <= n; i++) { \
+		word = words[i]; \
+		if (line == "") { \
+			line = word; \
+		} else if (length(line " " word) <= width) { \
+			line = line " " word; \
+		} else { \
+			if (first) { \
+				result = line; \
+				first = 0; \
+			} else { \
+				result = result "\n" indent line; \
+			} \
+			line = word; \
+		} \
+	} \
+	if (first) { \
+		result = line; \
+	} else { \
+		result = result "\n" indent line; \
+	} \
+	return result; \
+} \
 /^[a-zA-Z0-9_.%\/$$()\\-]+:.*##/ { \
 	target = $$1; \
 	desc = $$2; \
@@ -72,6 +108,14 @@ function expand(s,  var,pre,post,val,i,matched) { \
 		next; \
 	if (target !~ /^--/ && "$(1)" != "targets") \
 		next; \
-	printf "  \033[38;5;179m%-$(__HELP_WIDTH)s\033[0m %s\n", target, desc; \
-}' $(MAKEFILE_LIST) | LC_ALL=C sort -u
+	indent = ""; \
+	for (i = 0; i < target_width + 2; i++) \
+		indent = indent " "; \
+	wrapped = wrap_text(desc, desc_width, indent); \
+	if (wrapped == "") { \
+		printf "  \033[38;5;179m%-" target_width "s\033[0m\n", target; \
+	} else { \
+		printf "  \033[38;5;179m%-" target_width "s\033[0m %s\n", target, wrapped; \
+	} \
+}' $(bowerbird-help.files) | LC_ALL=C sort -u
 endef

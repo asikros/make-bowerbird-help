@@ -8,13 +8,13 @@ See **[Proposal Lifecycle and Guidelines](https://github.com/asikros/make-bowerb
 
 ## Draft
 
-Proposals under active development:
-
-_(None yet)_
+_(Proposals under active development)_
 
 ## Accepted
 
-_(Proposals move here once reviewed, approved, and implemented)_
+Proposals that have been reviewed, approved, and implemented:
+
+- **[01-configurable-column-widths.md](accepted/01-configurable-column-widths.md)** - Configurable Column Widths with Word Wrapping (implemented 2026-01-22)
 
 ## Rejected
 

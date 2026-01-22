@@ -15,11 +15,13 @@ jobs:
             os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v4
+    - name: Debugging Log
+      run: |
+        make clean --debug=v SHELL='sh -xvp'
+    - name: Target Log
+      run: |
+        make -p
     - name: Run check
       run: |
         make clean
         make check
-    - name: Run test
-      run: |
-        make clean
-        make test

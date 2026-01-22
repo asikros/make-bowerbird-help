@@ -1,10 +1,11 @@
 __PATH_FORMATTING_EDGE_EMPTY_DESC := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_EDGE_EMPTY_DESC
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
-mock-formatting-edge-empty-desc: ##
+mock-formatting-edge-empty-desc: ####
 endif
 
 define expected-formatting-edge-empty-desc

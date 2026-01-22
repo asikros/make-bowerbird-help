@@ -1,10 +1,11 @@
 __PATH_FORMATTING_SHORT := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_SHORT
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
-mock-formatting-short: ## Short description
+mock-formatting-short: #### Short description
 endif
 
 define expected-formatting-short

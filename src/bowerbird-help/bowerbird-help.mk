@@ -5,6 +5,7 @@ WORKDIR_BUILD ?= $(error ERROR: Undefined variable WORKDIR_BUILD)
 bowerbird-help.width-target ?= 28
 bowerbird-help.width-description ?= 60
 bowerbird-help.files ?= $(MAKEFILE_LIST)
+bowerbird-help.annotation ?= \#\#
 
 # Paths
 __HELP_CACHE = $(WORKDIR_BUILD)/help/help.cache
@@ -31,8 +32,8 @@ $(__HELP_CACHE): $(MAKEFILE_LIST) | $(dir $(__HELP_CACHE))/.
 define __HELP_AWK
 awk -v target_width="$(bowerbird-help.width-target)" \
     -v desc_width="$(bowerbird-help.width-description)" \
-    -v makefiles="$(bowerbird-help.files)" 'BEGIN { \
-	FS = ":.*##"; \
+    -v makefiles="$(bowerbird-help.files)" \
+    -v annotation="$(bowerbird-help.annotation)" 'BEGIN { \
 	n = split(makefiles, files, " "); \
 	cmd = "make"; \
 	for (i = 1; i <= n; i++) { \
@@ -97,13 +98,30 @@ function wrap_text(text, width, indent,    words, n, line, i, word, result, firs
 	} \
 	return result; \
 } \
-/^[a-zA-Z0-9_.%\/$$()\\-]+:.*##/ { \
-	target = $$1; \
-	desc = $$2; \
-	gsub(/:$$/, "", target); \
+{ \
+	if ($$0 !~ "^[a-zA-Z0-9_.%\\/$$()\\\\-]+:") \
+		next; \
+	pos = index($$0, annotation); \
+	if (pos == 0) \
+		next; \
+	after_annot_pos = pos + length(annotation); \
+	if (after_annot_pos <= length($$0)) { \
+		next_char = substr($$0, after_annot_pos, 1); \
+		if (next_char == "#") \
+			next; \
+	} \
+	match($$0, /^[^:]+/); \
+	target = substr($$0, RSTART, RLENGTH); \
 	gsub(/^[[:space:]]+/, "", target); \
 	gsub(/[[:space:]]+$$/, "", target); \
 	target = expand(target); \
+	if (after_annot_pos <= length($$0)) { \
+		desc = substr($$0, after_annot_pos); \
+		gsub(/^[[:space:]]+/, "", desc); \
+		gsub(/[[:space:]]+$$/, "", desc); \
+	} else { \
+		desc = ""; \
+	} \
 	if (target ~ /^--/ && "$(1)" != "flags") \
 		next; \
 	if (target !~ /^--/ && "$(1)" != "targets") \
@@ -112,10 +130,19 @@ function wrap_text(text, width, indent,    words, n, line, i, word, result, firs
 	for (i = 0; i < target_width + 3; i++) \
 		indent = indent " "; \
 	wrapped = wrap_text(desc, desc_width, indent); \
+	sortkey = tolower(target); \
+	gsub(/[^a-z0-9]/, "", sortkey); \
 	if (wrapped == "") { \
-		printf "  \033[38;5;179m%-" target_width "s\033[0m\n", target; \
+		printf "%s\t%09d\t  \033[38;5;179m%-" target_width "s\033[0m\n", sortkey, ++seq, target; \
 	} else { \
-		printf "  \033[38;5;179m%-" target_width "s\033[0m %s\n", target, wrapped; \
+		n = split(wrapped, lines, "\n"); \
+		for (i = 1; i <= n; i++) { \
+			if (i == 1) { \
+				printf "%s\t%09d\t  \033[38;5;179m%-" target_width "s\033[0m %s\n", sortkey, ++seq, target, lines[i]; \
+			} else { \
+				printf "%s\t%09d\t%s\n", sortkey, ++seq, lines[i]; \
+			} \
+		} \
 	} \
-}' $(bowerbird-help.files) | LC_ALL=C sort -u
+}' $(bowerbird-help.files) | sort -t'	' -k1,1 -k2,2n | cut -f3-
 endef

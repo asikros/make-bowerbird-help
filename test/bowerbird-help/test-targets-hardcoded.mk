@@ -1,16 +1,17 @@
 __PATH_TARGETS_HARDCODED := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_TARGETS_HARDCODED
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
-mock-build: ## Build the project
+mock-build: #### Build the project
 
-mock-test: ## Run tests
+mock-test: #### Run tests
 
-mock-clean: ## Clean build artifacts
+mock-clean: #### Clean build artifacts
 
-mock-deploy: ## Deploy to production
+mock-deploy: #### Deploy to production
 endif
 
 define expected-targets-hardcoded

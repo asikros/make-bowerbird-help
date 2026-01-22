@@ -1,18 +1,19 @@
 __PATH_FORMATTING_MULTIPLE_LINES := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_MULTIPLE_LINES
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
-mock-formatting-multiple-lines: ## This is an extremely long description that will require multiple line wraps to display properly because it exceeds the configured maximum description width by a significant amount
+mock-formatting-multiple-lines: #### This is an extremely long description that will require multiple line wraps to display properly because it exceeds the configured maximum description width by a significant amount
 endif
 
 define expected-formatting-multiple-lines
 
 Available targets:
   \033[38;5;179mmock-formatting-multiple-lines\033[0m This is an extremely long description that will require
-                            exceeds the configured maximum description width by a
                             multiple line wraps to display properly because it
+                            exceeds the configured maximum description width by a
                             significant amount
 
 Optional flags:

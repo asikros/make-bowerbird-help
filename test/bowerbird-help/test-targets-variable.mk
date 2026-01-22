@@ -1,17 +1,18 @@
 __PATH_TARGETS_VARIABLE := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_TARGETS_VARIABLE
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
 TARGET_VAR = staging
 NESTED_TARGET = $(TARGET_VAR)-server
 
-mock-deploy-$(TARGET_VAR): ## Deploy to $(TARGET_VAR) environment
+mock-deploy-$(TARGET_VAR): #### Deploy to $(TARGET_VAR) environment
 
-mock-restart-$(NESTED_TARGET): ## Restart $(NESTED_TARGET) service
+mock-restart-$(NESTED_TARGET): #### Restart $(NESTED_TARGET) service
 
-mock-literal-dollar: ## Target with $$VAR literal
+mock-literal-dollar: #### Target with $$VAR literal
 endif
 
 define expected-targets-variable

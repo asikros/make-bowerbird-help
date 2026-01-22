@@ -1,10 +1,11 @@
 __PATH_FORMATTING_EDGE_LONG_WORD := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_EDGE_LONG_WORD
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
-mock-formatting-edge-long-word: ## supercalifragilisticexpialidocious description
+mock-formatting-edge-long-word: #### supercalifragilisticexpialidocious description
 endif
 
 define expected-formatting-edge-long-word

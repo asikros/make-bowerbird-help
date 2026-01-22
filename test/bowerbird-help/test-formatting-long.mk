@@ -1,17 +1,17 @@
 __PATH_FORMATTING_LONG := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_LONG
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
-bowerbird-help.width-description = 55
+bowerbird-help.width-description = 200
 
-mock-formatting-long: ## This is a very long description that should wrap at the configured width maintaining proper alignment
+mock-formatting-long: #### This is a very long description that should wrap at the configured width maintaining proper alignment
 endif
 
 define expected-formatting-long
 
 Available targets:
-  \033[38;5;179mmock-formatting-long     \033[0m This is a very long description that should wrap at the
-                            configured width maintaining proper alignment
+  \033[38;5;179mmock-formatting-long     \033[0m This is a very long description that should wrap at the configured width maintaining proper alignment
 
 Optional flags:
 

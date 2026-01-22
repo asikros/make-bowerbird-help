@@ -1,16 +1,17 @@
 __PATH_FLAGS_HARDCODED := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FLAGS_HARDCODED
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
---mock-verbose: ## Enable verbose output
+--mock-verbose: #### Enable verbose output
 
---mock-debug: ## Enable debug mode
+--mock-debug: #### Enable debug mode
 
---mock-dry-run: ## Show what would be done without executing
+--mock-dry-run: #### Show what would be done without executing
 
-mock-build: ## Build the project
+mock-build: #### Build the project
 endif
 
 define expected-flags-hardcoded

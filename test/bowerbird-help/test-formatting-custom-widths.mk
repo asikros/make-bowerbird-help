@@ -1,10 +1,11 @@
 __PATH_FORMATTING_CUSTOM_WIDTHS := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FORMATTING_CUSTOM_WIDTHS
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 35
 bowerbird-help.width-description = 50
 
-mock-formatting-custom-widths: ## Custom width configuration test
+mock-formatting-custom-widths: #### Custom width configuration test
 endif
 
 define expected-formatting-custom-widths

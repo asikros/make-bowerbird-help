@@ -1,15 +1,16 @@
 __PATH_FLAGS_VARIABLE := $(lastword $(MAKEFILE_LIST))
 
 ifdef TEST_FLAGS_VARIABLE
+bowerbird-help.annotation = \#\#\#\#
 bowerbird-help.width-target = 25
 bowerbird-help.width-description = 55
 
 FLAG_VAR = production
 NESTED_FLAG = $(FLAG_VAR)-mode
 
---mock-flag-$(FLAG_VAR): ## Flag with $(FLAG_VAR) variable
+--mock-flag-$(FLAG_VAR): #### Flag with $(FLAG_VAR) variable
 
---mock-nested-$(NESTED_FLAG): ## Flag with $(NESTED_FLAG) nested variable
+--mock-nested-$(NESTED_FLAG): #### Flag with $(NESTED_FLAG) nested variable
 endif
 
 define expected-flags-variable

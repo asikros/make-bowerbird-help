@@ -109,7 +109,7 @@ function wrap_text(text, width, indent,    words, n, line, i, word, result, firs
 	if (target !~ /^--/ && "$(1)" != "targets") \
 		next; \
 	indent = ""; \
-	for (i = 0; i < target_width + 2; i++) \
+	for (i = 0; i < target_width + 3; i++) \
 		indent = indent " "; \
 	wrapped = wrap_text(desc, desc_width, indent); \
 	if (wrapped == "") { \

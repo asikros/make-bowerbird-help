@@ -11,7 +11,7 @@ define expected-formatting-long
 
 Available targets:
   \033[38;5;179mmock-formatting-long     \033[0m This is a very long description that should wrap at the
-                           configured width maintaining proper alignment
+                            configured width maintaining proper alignment
 
 Optional flags:
 

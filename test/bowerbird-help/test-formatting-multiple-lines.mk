@@ -11,9 +11,9 @@ define expected-formatting-multiple-lines
 
 Available targets:
   \033[38;5;179mmock-formatting-multiple-lines\033[0m This is an extremely long description that will require
-                           exceeds the configured maximum description width by a
-                           multiple line wraps to display properly because it
-                           significant amount
+                            exceeds the configured maximum description width by a
+                            multiple line wraps to display properly because it
+                            significant amount
 
 Optional flags:
 

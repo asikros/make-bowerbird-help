@@ -112,6 +112,10 @@ function wrap_text(text, width, indent,    words, n, line, i, word, result, firs
 	for (i = 0; i < target_width + 2; i++) \
 		indent = indent " "; \
 	wrapped = wrap_text(desc, desc_width, indent); \
-	printf "  \033[38;5;179m%-" target_width "s\033[0m %s\n", target, wrapped; \
+	if (wrapped == "") { \
+		printf "  \033[38;5;179m%-" target_width "s\033[0m\n", target; \
+	} else { \
+		printf "  \033[38;5;179m%-" target_width "s\033[0m %s\n", target, wrapped; \
+	} \
 }' $(bowerbird-help.files) | LC_ALL=C sort -u
 endef

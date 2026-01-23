@@ -1,9 +1,10 @@
 # Configurable Column Widths with Word Wrapping
 
 ```
-Status:   Accepted
+Status:   Implemented
 Project:  make-bowerbird-help
 Created:  2026-01-21
+Accepted: 2026-01-22
 Implemented: 2026-01-22
 Author:   Bowerbird Team
 ```
